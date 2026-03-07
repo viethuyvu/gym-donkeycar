@@ -16,6 +16,7 @@ from gym_donkeycar.envs.donkey_env import (
     WarehouseEnv,
     WarrenTrackEnv,
     WaveshareEnv,
+    MySimplifiedTrackEnv,
 )
 
 # Read version from file
@@ -49,6 +50,11 @@ register(id="donkey-thunderhill-track-v0", entry_point="gym_donkeycar.envs.donke
 
 register(id="donkey-circuit-launch-track-v0", entry_point="gym_donkeycar.envs.donkey_env:CircuitLaunchEnv")
 
+register(
+    id='donkey-my-simplified-track-v0',
+    entry_point='gym_donkeycar.envs.donkey_env:MySimplifiedTrackEnv'
+)
+
 __all__ = [
     "AvcSparkfunEnv",
     "CircuitLaunchEnv",
@@ -61,4 +67,5 @@ __all__ = [
     "WarehouseEnv",
     "WarrenTrackEnv",
     "WaveshareEnv",
+    "MySimplifiedTrackEnv",
 ]
