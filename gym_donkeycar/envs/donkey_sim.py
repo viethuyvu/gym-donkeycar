@@ -164,6 +164,7 @@ class DonkeyUnitySimHandler(IMesgHandler):
             "missed_checkpoint": self.on_missed_checkpoint,
             "need_car_config": self.on_need_car_config,
             "collision_with_starting_line": self.on_collision_with_starting_line,
+            "track_complete": self.on_track_complete,
         }
         self.gyro_x = 0.0
         self.gyro_y = 0.0
@@ -557,6 +558,7 @@ class DonkeyUnitySimHandler(IMesgHandler):
 
         # don't update hit once session over
         if self.over:
+            logger.debug("Episode over flag is True")
             return
 
         if "hit" in message:
@@ -572,6 +574,11 @@ class DonkeyUnitySimHandler(IMesgHandler):
 
     def on_race_stop(self, message: Dict[str, Any]) -> None:
         logger.debug("race stoped")
+
+    def on_track_complete(self, message):
+        """Called when the car reaches the end trigger in Unity."""
+        logger.info("Track completed, ending episode")
+        self.over = True
 
     def on_missed_checkpoint(self, message: Dict[str, Any]) -> None:
         logger.info("racer missed checkpoint")
