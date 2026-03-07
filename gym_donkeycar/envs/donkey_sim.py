@@ -637,22 +637,19 @@ class DonkeyUnitySimHandler(IMesgHandler):
             else:
                 raise ValueError(f"Scene name {self.SceneToLoad} not in scene list {names}")
 
-    def send_control(self, steer: float, throttle: float, brake: float = 0.0) -> None:
+    def send_control(self, left: float, right: float, brake: float = 0.0) -> None:
         """
-        Send command to simulator.
-
-        :param steer: desired steering
-        :param throttle: desired throttle
-        :param brake: whether to activate or not hand brake
-            (can be a continuous value)
+        Send motor commands to the simulator.
+        :param left:  left motor speed, normalised -1..1
+        :param right: right motor speed, normalised -1..1
+        :param brake: ignored (kept for compatibility)
         """
         if not self.loaded:
             return
         msg = {
             "msg_type": "control",
-            "steering": str(steer),
-            "throttle": str(throttle),
-            "brake": str(brake),
+            "left": str(left),
+            "right": str(right),
         }
         self.queue_message(msg)
 
