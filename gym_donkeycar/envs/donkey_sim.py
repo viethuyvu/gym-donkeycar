@@ -501,6 +501,7 @@ class DonkeyUnitySimHandler(IMesgHandler):
     # ------ Socket interface ----------- #
 
     def on_telemetry(self, message: Dict[str, Any]) -> None:
+        print(f"cte: {message.get('cte', 'N/A')}, hit: {message.get('hit', 'N/A')}, pos: ({message.get('pos_x', 0):.2f}, {message.get('pos_y', 0):.2f}, {message.get('pos_z', 0):.2f})")
         img_string = message["image"]
         image = Image.open(BytesIO(base64.b64decode(img_string)))
 
@@ -565,6 +566,7 @@ class DonkeyUnitySimHandler(IMesgHandler):
             self.hit = message["hit"]
 
         self.determine_episode_over()
+        print(f"over: {self.over}")
 
     def on_cross_start(self, message: Dict[str, Any]) -> None:
         logger.info(f"crossed start line: lap_time {message['lap_time']}")
